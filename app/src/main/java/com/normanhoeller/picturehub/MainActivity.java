@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void startSearchActivity(String searchQuery) {
         Intent startActivity = new Intent(this, PictureActivity.class);
-        startActivity.putExtra()
+        startActivity.putExtra(PictureActivity.SEARCH_QUERY, searchQuery);
+        startActivity(startActivity);
     }
 
     @Override

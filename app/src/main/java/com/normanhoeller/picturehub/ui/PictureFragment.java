@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.normanhoeller.picturehub.PictureActivity;
+
 /**
  * Created by norman on 31/08/15.
  */
@@ -21,5 +23,13 @@ public class PictureFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    public static PictureFragment createInstance(String searchQuery) {
+        PictureFragment fragment = new PictureFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(PictureActivity.SEARCH_QUERY, searchQuery);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }
