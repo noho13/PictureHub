@@ -16,7 +16,7 @@ public class RestClient {
 
     private RestClient() {
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://api.github.com")
+                .setEndpoint(BASE_URL)
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
@@ -25,11 +25,19 @@ public class RestClient {
                         request.addHeader("Authorization", auth);
                     }
                 })
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
         service = restAdapter.create(ShutterStockService.class);
     }
 
-    public static ShutterStockService getService() {
+    public ShutterStockService getService() {
         return service;
+    }
+
+    public static RestClient getInstance() {
+        if (restClient == null) {
+            restClient = new RestClient();
+        }
+        return restClient;
     }
 }
