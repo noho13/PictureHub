@@ -16,6 +16,7 @@ import com.normanhoeller.picturehub.PictureHubApplication;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.adapter.PictureAdapter;
 import com.normanhoeller.picturehub.api.RestClient;
+import com.normanhoeller.picturehub.api.ShutterStockService;
 import com.normanhoeller.picturehub.model.SearchResult;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class PictureFragment extends Fragment {
 
     private static final String TAG = PictureFragment.class.getSimpleName();
     @Inject
-    public RestClient restClient;
+    public ShutterStockService shutterstockService;
     private RecyclerView recyclerView;
 
     public static PictureFragment createInstance(String searchQuery) {
@@ -65,7 +66,7 @@ public class PictureFragment extends Fragment {
     }
 
     private void queryShutterStock(String query) {
-        restClient.getService().getSearchResult(query)
+        shutterstockService.getSearchResult(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<SearchResult>() {

@@ -1,6 +1,7 @@
 package com.normanhoeller.picturehub.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,9 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         SearchResult.Data item = pictureDataList.get(position);
         String url = item.getAssets().getPreview().getUrl();
-        Picasso.with(viewHolder.imageView.getContext()).load(url).into(viewHolder.imageView);
+        if (!TextUtils.isEmpty(url)) {
+            Picasso.with(viewHolder.imageView.getContext()).load(url).into(viewHolder.imageView);
+        }
     }
 
     @Override
