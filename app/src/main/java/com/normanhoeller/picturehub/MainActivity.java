@@ -1,6 +1,7 @@
 package com.normanhoeller.picturehub;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final EditText query = (EditText) findViewById(R.id.et_query);
-        Button goSearch = (Button) findViewById(R.id.btn_go);
+        FloatingActionButton goSearch = (FloatingActionButton) findViewById(R.id.btn_go);
 
         goSearch.setOnClickListener(new View.OnClickListener() {
             @Override
