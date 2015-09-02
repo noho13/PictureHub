@@ -65,14 +65,14 @@ public class TestPictureActivity {
     }
 
     @Test
-    public void testPictureFragment() {
+    public void fragmentNotNull() {
         assertNotNull(shutterStockService);
         assertNotNull(fragment);
     }
 
     @Test
-    public void testAdapter(){
-        RecyclerView recyclerView = (RecyclerView) fragment.getView().findViewById(R.id.recyclerGridView);
+    public void itemCount(){
+        RecyclerView recyclerView = (RecyclerView) fragment.getView().findViewById(R.id.rv_item_grid);
         int itemCount = recyclerView.getAdapter().getItemCount();
         assertEquals(expectedItems, itemCount);
     }

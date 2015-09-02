@@ -6,4 +6,6 @@
     <string name="enter_search_query">Hi. Please enter your search keyword</string>
     <string name="query_hint">keyword goes here</string>
     <string name="go">GO</string>
+    <string name="no_results">...no results for your query</string>
+    <string name="hit_back">new search</string>
 </resources>
