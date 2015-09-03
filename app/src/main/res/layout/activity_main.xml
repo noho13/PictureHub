@@ -1,19 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_main"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Title.Inverse" />
+
+    </android.support.v7.widget.Toolbar>
 
     <TextView
         android:id="@+id/tv_explain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/tb_main"
+        android:layout_margin="16dp"
         android:text="@string/enter_search_query"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
 
@@ -22,8 +34,10 @@
         android:id="@+id/et_query"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:layout_below="@id/tv_explain"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="64dp"
         android:hint="@string/query_hint" />
 
 
@@ -31,11 +45,11 @@
         android:id="@+id/btn_go"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_centerHorizontal="true"
-        android:src="@android:drawable/ic_search_category_default"
         android:layout_below="@id/et_query"
-        app:fabSize="normal"
-        android:text="@string/go" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:src="@android:drawable/ic_search_category_default"
+        android:text="@string/go"
+        app:fabSize="normal" />
 
 </RelativeLayout>
