@@ -5,8 +5,8 @@ package com.normanhoeller.picturehub.model;
  */
 public class ViewModelResult {
 
-    private String url;
-    private String description;
+    private final String url;
+    private final String description;
 
     public ViewModelResult(String url, String description) {
         this.url = url;
@@ -17,15 +17,7 @@ public class ViewModelResult {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }
