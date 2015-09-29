@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -17,6 +18,9 @@ import com.normanhoeller.picturehub.PictureActivity;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.adapter.PictureAdapter;
 import com.normanhoeller.picturehub.model.SearchResult;
+import com.normanhoeller.picturehub.model.ViewModelResult;
+
+import java.util.List;
 
 /**
  * Created by norman on 31/08/15.
@@ -63,7 +67,7 @@ public class PictureFragment extends Fragment {
             }
         }
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         String searchQuery = getArguments().getString(PictureActivity.SEARCH_QUERY);
         toolbarTitle.setText("looking for: " + searchQuery.toLowerCase());
         queryShutterStock(searchQuery);
@@ -91,11 +95,11 @@ public class PictureFragment extends Fragment {
         outState.putInt(PROGRESS_BAR_VISIBILITY, progressBar.getVisibility());
     }
 
-    public void setResult(SearchResult searchResult) {
+    public void setResult(List<ViewModelResult> searchResult) {
         recyclerView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        recyclerView.setAdapter(new PictureAdapter(searchResult.getData()));
-        if (searchResult.getData().size() == 0) {
+        recyclerView.setAdapter(new PictureAdapter(searchResult));
+        if (searchResult.size() == 0) {
             showSnackBar(recyclerView);
         }
     }

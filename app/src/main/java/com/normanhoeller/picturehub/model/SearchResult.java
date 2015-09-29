@@ -48,6 +48,15 @@ public class SearchResult {
     public static class Data {
         private String id;
         private Assets assets;
+        private String description;
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
 
         public String getId() {
             return id;

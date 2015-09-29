@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.normanhoeller.picturehub.model.SearchResult;
+import com.normanhoeller.picturehub.model.ViewModelResult;
 import com.normanhoeller.picturehub.ui.PictureFragment;
+
+import java.util.List;
 
 /**
  * Created by norman on 31/08/15.
@@ -37,7 +40,7 @@ public class PictureActivity extends AppCompatActivity implements WorkerFragment
     }
 
     @Override
-    public void setResult(SearchResult searchResult) {
+    public void setResult(List<ViewModelResult> searchResult) {
         PictureFragment fragment = (PictureFragment) getSupportFragmentManager().findFragmentById(android.R.id.content);
         if (fragment != null) {
             fragment.setResult(searchResult);

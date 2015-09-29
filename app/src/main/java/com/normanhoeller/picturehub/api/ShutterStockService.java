@@ -11,6 +11,6 @@ import rx.Observable;
  */
 public interface ShutterStockService {
 
-    @GET("/images/search")
+    @GET("/images/search?per_page=30")
     Observable<SearchResult> getSearchResult(@Query("query") String query);
 }
