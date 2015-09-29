@@ -1,16 +1,14 @@
 package com.normanhoeller.picturehub.adapter;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.normanhoeller.picturehub.R;
+import com.normanhoeller.picturehub.databinding.ItemPictureBinding;
 import com.normanhoeller.picturehub.model.ViewModelResult;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -35,14 +33,16 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         ViewModelResult item = pictureDataList.get(position);
-        String url = item.getUrl();
-        if (!TextUtils.isEmpty(url)) {
-            Picasso.with(viewHolder.imageView.getContext()).load(url).into(viewHolder.imageView);
-        }
+        viewHolder.bind(item);
 
-        if (!TextUtils.isEmpty(item.getDescription())) {
-            viewHolder.description.setText(item.getDescription());
-        }
+//        String url = item.getUrl();
+//        if (!TextUtils.isEmpty(url)) {
+//            Picasso.with(viewHolder.imageView.getContext()).load(url).into(viewHolder.imageView);
+//        }
+//
+//        if (!TextUtils.isEmpty(item.getDescription())) {
+//            viewHolder.description.setText(item.getDescription());
+//        }
     }
 
     @Override
@@ -51,13 +51,19 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
-        TextView description;
+        //        ImageView imageView;
+//        TextView description;
+        ItemPictureBinding itemPictureBinding;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            this.imageView = (ImageView) itemView.findViewById(R.id.iv_picture);
-            this.description = (TextView) itemView.findViewById(R.id.tv_line1);
+            itemPictureBinding = DataBindingUtil.bind(itemView);
+//            this.imageView = (ImageView) itemView.findViewById(R.id.iv_picture);
+//            this.description = (TextView) itemView.findViewById(R.id.tv_line1);
+        }
+
+        void bind(ViewModelResult result) {
+            itemPictureBinding.setResult(result);
         }
     }
 }

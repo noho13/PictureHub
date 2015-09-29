@@ -3,7 +3,6 @@ package com.normanhoeller.picturehub;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.normanhoeller.picturehub.model.SearchResult;
 import com.normanhoeller.picturehub.model.ViewModelResult;
 import com.normanhoeller.picturehub.ui.PictureFragment;
 

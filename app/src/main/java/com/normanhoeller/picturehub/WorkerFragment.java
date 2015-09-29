@@ -3,7 +3,6 @@ package com.normanhoeller.picturehub;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.normanhoeller.picturehub.api.ShutterStockService;
@@ -61,9 +60,8 @@ public class WorkerFragment extends Fragment {
                 .flatMap(new Func1<SearchResult, Observable<List<ViewModelResult>>>() {
                     @Override
                     public Observable<List<ViewModelResult>> call(SearchResult searchResult) {
-                        List<SearchResult.Data> data = searchResult.getData();
                         List<ViewModelResult> results = new ArrayList<>();
-                        for (SearchResult.Data result : data) {
+                        for (SearchResult.Data result : searchResult.getData()) {
                             results.add(new ViewModelResult(result.getAssets().getPreview().getUrl(), result.getDescription()));
                         }
                         return Observable.just(results);
