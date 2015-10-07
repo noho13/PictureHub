@@ -14,7 +14,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -27,13 +26,9 @@ public class WorkerFragment extends Fragment {
 
     public static final String FRAG_TAG = "frag_tag";
     private static final String TAG = WorkerFragment.class.getSimpleName();
-    private Callback callback;
     @Inject
     public ShutterStockService shutterstockService;
-
-    public interface Callback {
-        void setResult(List<ViewModelResult> searchResult);
-    }
+    private Callback callback;
 
     @Override
     public void onAttach(Activity activity) {
@@ -57,14 +52,14 @@ public class WorkerFragment extends Fragment {
         shutterstockService.getSearchResult(query)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(new Func1<SearchResult, Observable<List<ViewModelResult>>>() {
+                .map(new Func1<SearchResult, List<ViewModelResult>>() {
                     @Override
-                    public Observable<List<ViewModelResult>> call(SearchResult searchResult) {
+                    public List<ViewModelResult> call(SearchResult searchResult) {
                         List<ViewModelResult> results = new ArrayList<>();
                         for (SearchResult.Data result : searchResult.getData()) {
                             results.add(new ViewModelResult(result.getAssets().getPreview().getUrl(), result.getDescription()));
                         }
-                        return Observable.just(results);
+                        return results;
                     }
                 })
                 .subscribe(new Action1<List<ViewModelResult>>() {
@@ -82,5 +77,9 @@ public class WorkerFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         callback = null;
+    }
+
+    public interface Callback {
+        void setResult(List<ViewModelResult> searchResult);
     }
 }
