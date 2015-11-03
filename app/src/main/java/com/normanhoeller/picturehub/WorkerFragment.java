@@ -65,10 +65,15 @@ public class WorkerFragment extends Fragment {
                 .subscribe(new Action1<List<ViewModelResult>>() {
                     @Override
                     public void call(List<ViewModelResult> searchResult) {
-                        Log.d(TAG, "got searchresult: " + searchResult);
+//                        Log.d(TAG, "got searchresult: " + searchResult);
                         if (callback != null) {
                             callback.setResult(searchResult);
                         }
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Log.d(TAG, "error while loading data: " + throwable.getMessage());
                     }
                 });
     }

@@ -4,10 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import com.normanhoeller.picturehub.PictureActivity;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.adapter.PictureAdapter;
-import com.normanhoeller.picturehub.model.SearchResult;
 import com.normanhoeller.picturehub.model.ViewModelResult;
 
 import java.util.List;
@@ -67,7 +64,8 @@ public class PictureFragment extends Fragment {
             }
         }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new MySimpleLayoutManager(getActivity()));
         String searchQuery = getArguments().getString(PictureActivity.SEARCH_QUERY);
         toolbarTitle.setText("looking for: " + searchQuery.toLowerCase());
         queryShutterStock(searchQuery);
@@ -98,7 +96,12 @@ public class PictureFragment extends Fragment {
     public void setResult(List<ViewModelResult> searchResult) {
         recyclerView.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
-        recyclerView.setAdapter(new PictureAdapter(searchResult));
+        PictureAdapter adapter = new PictureAdapter(searchResult);
+        recyclerView.setAdapter(adapter);
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(recyclerView);
         if (searchResult.size() == 0) {
             showSnackBar(recyclerView);
         }

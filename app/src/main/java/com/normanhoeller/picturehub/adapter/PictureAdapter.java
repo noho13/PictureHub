@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.databinding.ItemPictureBinding;
 import com.normanhoeller.picturehub.model.ViewModelResult;
+import com.normanhoeller.picturehub.ui.ItemTouchHelperAdapter;
 
 import java.util.List;
 
 /**
  * Created by norman on 31/08/15.
  */
-public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
+public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> implements ItemTouchHelperAdapter{
 
     private static final String TAG = PictureAdapter.class.getSimpleName();
     private List<ViewModelResult> pictureDataList;
@@ -48,6 +49,12 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     @Override
     public int getItemCount() {
         return pictureDataList.size();
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        pictureDataList.remove(position);
+        notifyItemRemoved(position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
