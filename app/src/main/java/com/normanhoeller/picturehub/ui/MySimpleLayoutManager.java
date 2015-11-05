@@ -3,6 +3,7 @@ package com.normanhoeller.picturehub.ui;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +16,7 @@ public class MySimpleLayoutManager extends RecyclerView.LayoutManager {
     private static final String TAG = "MySimpleLayoutManager";
     private final int mScrollDistance;
     private int mFirstPosition;
+    private boolean isEmptyLayout;
 
     public MySimpleLayoutManager(Context c) {
         final DisplayMetrics dm = c.getResources().getDisplayMetrics();
@@ -23,32 +25,56 @@ public class MySimpleLayoutManager extends RecyclerView.LayoutManager {
 
     @Override
     public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-        final int parentBottom = getHeight() - getPaddingBottom();
+        Log.d(TAG, "onLayoutChildren() - " + state.getItemCount());
+//        final int parentBottom = getHeight() - getPaddingBottom();
         final View oldTopView = getChildCount() > 0 ? getChildAt(0) : null;
         int oldTop = getPaddingTop();
         if (oldTopView != null) {
             oldTop = oldTopView.getTop();
         }
-
+        Log.d(TAG, "childCount before detachAnd...: " + getChildCount());
+        if (getChildCount() == 0) {
+            isEmptyLayout = true;
+        } else {
+            isEmptyLayout = false;
+        }
         detachAndScrapAttachedViews(recycler);
+        Log.d(TAG, "childCount after detachAnd...: " + getChildCount());
 
         int top = oldTop;
         int bottom;
         int left = getPaddingLeft();
-        int right = getWidth() - getPaddingRight();
+        int right;
 
-        int count = state.getItemCount();
-        count = 4;
-
-        for (int i = 0; mFirstPosition + i < count && top < parentBottom; i++) {
-            View v = recycler.getViewForPosition(mFirstPosition + i);
-            addView(v, i);
-            measureChildWithMargins(v, 0, 0);
-            bottom = top + getDecoratedMeasuredHeight(v);
-            right = left + getDecoratedMeasuredWidth(v);
-            layoutDecorated(v, left, top, right, bottom);
-            top = top + 80;
-            left = left + 20;
+//        int count = state.getItemCount();
+//        for (int i = 0; mFirstPosition + i < count && top < parentBottom; i++) {
+        if (isEmptyLayout) {
+            for (int i = 0; mFirstPosition + i < 4; i++) {
+                View v = recycler.getViewForPosition(mFirstPosition + i);
+                addView(v, i);
+                measureChildWithMargins(v, 0, 0);
+                bottom = top + getDecoratedMeasuredHeight(v);
+                right = left + getDecoratedMeasuredWidth(v);
+                layoutDecorated(v, left, top, right, bottom);
+                top = top + 80;
+                left = left + 20;
+            }
+        } else {
+            for (int i = 0; mFirstPosition + i < 4; i++) {
+                View v;
+                if (i == 0) {
+                    v = recycler.getViewForPosition(3);
+                } else {
+                    v = recycler.getViewForPosition(i - 1);
+                }
+                addView(v, i);
+                measureChildWithMargins(v, 0, 0);
+                bottom = top + getDecoratedMeasuredHeight(v);
+                right = left + getDecoratedMeasuredWidth(v);
+                layoutDecorated(v, left, top, right, bottom);
+                top = top + 80;
+                left = left + 20;
+            }
         }
     }
 
