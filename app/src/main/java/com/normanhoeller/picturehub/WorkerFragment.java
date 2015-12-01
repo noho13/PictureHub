@@ -50,8 +50,6 @@ public class WorkerFragment extends Fragment {
 
     public void queryShutterStockService(String query) {
         shutterstockService.getSearchResult(query)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<SearchResult, List<ViewModelResult>>() {
                     @Override
                     public List<ViewModelResult> call(SearchResult searchResult) {
@@ -62,6 +60,8 @@ public class WorkerFragment extends Fragment {
                         return results;
                     }
                 })
+                .subscribeOn(Schedulers.io()) // upwards runs on io
+                .observeOn(AndroidSchedulers.mainThread()) // downwards runs on mainThread
                 .subscribe(new Action1<List<ViewModelResult>>() {
                     @Override
                     public void call(List<ViewModelResult> searchResult) {
