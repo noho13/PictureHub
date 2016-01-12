@@ -16,7 +16,13 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public ShutterStockService provideRestClient() {
-        return RestClient.getInstance().getService();
+    public ShutterStockService provideShutterStockService(RestClient restClient) {
+        return restClient.getService();
+    }
+
+    @Provides
+    @Singleton
+    public RestClient provideRestClient() {
+        return RestClient.getInstance();
     }
 }
