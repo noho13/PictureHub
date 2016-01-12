@@ -55,8 +55,6 @@ public class PictureFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
         if (savedInstanceState != null) {
             int progressVisibility = savedInstanceState.getInt(PROGRESS_BAR_VISIBILITY);
             if (progressVisibility == View.VISIBLE) {
