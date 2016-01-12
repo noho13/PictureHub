@@ -35,8 +35,6 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
         ViewModelResult item = pictureDataList.get(position);
-//        viewHolder.bind(item);
-
         String url = item.getUrl();
         if (!TextUtils.isEmpty(url)) {
             Picasso.with(viewHolder.imageView.getContext()).load(url).into(viewHolder.imageView);
@@ -55,17 +53,11 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView description;
-//        ItemPictureBinding itemPictureBinding;
 
         ViewHolder(View itemView) {
             super(itemView);
-//            itemPictureBinding = DataBindingUtil.bind(itemView);
             this.imageView = (ImageView) itemView.findViewById(R.id.iv_picture);
             this.description = (TextView) itemView.findViewById(R.id.tv_line1);
         }
-
-//        void bind(ViewModelResult result) {
-//            itemPictureBinding.setResult(result);
-//        }
     }
 }
