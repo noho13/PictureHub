@@ -15,7 +15,7 @@ public class HelperModule {
 
     @Provides
     @Singleton
-    public RestClient provideRestClien(){
+    public RestClient provideRestClient(){
         return RestClient.getInstance();
     }
 }
