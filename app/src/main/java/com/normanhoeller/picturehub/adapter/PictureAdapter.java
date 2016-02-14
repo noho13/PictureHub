@@ -36,8 +36,10 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
             @Override
             public void onClick(View v) {
                 String url = getItem(holder.getAdapterPosition()).getUrl();
+                String text = getItem(holder.getAdapterPosition()).getDescription();
                 Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
                 intent.putExtra(DetailActivity.URL_KEY, url);
+                intent.putExtra(DetailActivity.DESCRIPTION_KEY, text);
                 holder.itemView.getContext().startActivity(intent);
             }
         });
