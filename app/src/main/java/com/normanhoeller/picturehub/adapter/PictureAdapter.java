@@ -1,5 +1,6 @@
 package com.normanhoeller.picturehub.adapter;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.normanhoeller.picturehub.DetailActivity;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.model.ViewModelResult;
 import com.squareup.picasso.Picasso;
@@ -29,7 +31,17 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_picture, parent, false);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = getItem(holder.getAdapterPosition()).getUrl();
+                Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
+                intent.putExtra(DetailActivity.URL_KEY, url);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -43,6 +55,11 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
         if (!TextUtils.isEmpty(item.getDescription())) {
             viewHolder.description.setText(item.getDescription());
         }
+
+    }
+
+    public ViewModelResult getItem(int position) {
+        return pictureDataList.get(position);
     }
 
     @Override
