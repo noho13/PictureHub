@@ -6,8 +6,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import android.widget.TextView;
 import com.normanhoeller.picturehub.PictureActivity;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.adapter.PictureAdapter;
-import com.normanhoeller.picturehub.model.SearchResult;
 import com.normanhoeller.picturehub.model.ViewModelResult;
 
 import java.util.List;
@@ -47,7 +44,7 @@ public class PictureFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_picture, container, false);
         recyclerView = (RecyclerView) root.findViewById(R.id.rv_item_grid);
         progressBar = (ProgressBar) root.findViewById(R.id.pr_loading);
-        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(android.R.color.holo_orange_light), android.graphics.PorterDuff.Mode.MULTIPLY);
+//        progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(android.R.color.holo_orange_light), android.graphics.PorterDuff.Mode.MULTIPLY);
         toolbarTitle = (TextView) root.findViewById(R.id.tv_toolbar_title);
         return root;
     }
