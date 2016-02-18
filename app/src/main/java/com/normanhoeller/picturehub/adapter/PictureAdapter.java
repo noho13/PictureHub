@@ -1,6 +1,11 @@
 package com.normanhoeller.picturehub.adapter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -35,12 +40,23 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Context context = holder.itemView.getContext();
+
                 String url = getItem(holder.getAdapterPosition()).getUrl();
                 String text = getItem(holder.getAdapterPosition()).getDescription();
-                Intent intent = new Intent(holder.itemView.getContext(), DetailActivity.class);
+                Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra(DetailActivity.URL_KEY, url);
                 intent.putExtra(DetailActivity.DESCRIPTION_KEY, text);
-                holder.itemView.getContext().startActivity(intent);
+
+                String transitionName = context.getString(R.string.transition_name);
+                Pair<View, String> pair = new Pair<View, String>(holder.imageView,
+                        transitionName);
+
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pair);
+
+                ActivityCompat.startActivity((AppCompatActivity) context, intent, activityOptionsCompat.toBundle());
+//                holder.itemView.getContext().startActivity(intent);
             }
         });
         return holder;

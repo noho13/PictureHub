@@ -15,7 +15,6 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:indeterminateDrawable="@drawable/progress"
         android:visibility="visible" />
 
     <android.support.v7.widget.RecyclerView

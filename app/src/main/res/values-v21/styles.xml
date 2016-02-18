@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+
+        <!--<item name="android:windowContentTransitions">true</item>-->
+
+        <!--<item name="android:windowEnterTransition">@android:transition/slide_bottom</item>-->
+        <!--<item name="android:windowExitTransition">@android:transition/slide_bottom</item>-->
+        <!--<item name="android:windowReturnTransition">@android:transition/slide_bottom</item>-->
+
+    </style>
+
+</resources>

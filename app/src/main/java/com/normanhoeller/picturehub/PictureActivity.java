@@ -2,6 +2,7 @@ package com.normanhoeller.picturehub;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import com.normanhoeller.picturehub.model.ViewModelResult;
 import com.normanhoeller.picturehub.ui.PictureFragment;
@@ -19,6 +20,8 @@ public class PictureActivity extends AppCompatActivity implements WorkerFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setupWorker();
         if (savedInstanceState == null) {
             PictureFragment fragment = PictureFragment.createInstance(getIntent().getStringExtra(SEARCH_QUERY));

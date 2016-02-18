@@ -1,13 +1,18 @@
 package com.normanhoeller.picturehub;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -23,6 +28,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (savedInstanceState == null) {
             DetailFragment fragment = DetailFragment.createInstance(getIntent().getStringExtra(URL_KEY), getIntent().getStringExtra(DESCRIPTION_KEY));
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
@@ -51,6 +57,7 @@ public class DetailActivity extends AppCompatActivity {
             return inflater.inflate(R.layout.fragment_detail, container, false);
         }
 
+        @SuppressLint("NewApi")
         @Override
         public void onActivityCreated(@Nullable Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
@@ -62,6 +69,9 @@ public class DetailActivity extends AppCompatActivity {
             TextView captionText = (TextView) getView().findViewById(R.id.image_caption);
             captionText.setText(caption);
 
+//            Transition enterTransition = (Transition;
+//            enterTransition.removeTarget(getView());
+//            enterTransition.addTarget(captionText);
         }
     }
 
