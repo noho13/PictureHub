@@ -37,28 +37,6 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 R.layout.item_picture,
                 parent,
                 false);
-        final PictureViewHolder holder = new PictureViewHolder(itemPictureBinding);
-        itemPictureBinding.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Context context = holder.itemView.getContext();
-
-                String url = getItem(holder.getAdapterPosition()).getUrl();
-                String text = getItem(holder.getAdapterPosition()).getDescription();
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.URL_KEY, url);
-                intent.putExtra(DetailActivity.DESCRIPTION_KEY, text);
-
-                String transitionName = context.getString(R.string.transition_name);
-                Pair<View, String> pair = new Pair<View, String>(itemPictureBinding.ivPicture,
-                        transitionName);
-
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pair);
-
-                ActivityCompat.startActivity((AppCompatActivity) context, intent, activityOptionsCompat.toBundle());
-            }
-        });
         return new PictureViewHolder(itemPictureBinding);
     }
 
@@ -69,23 +47,38 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         ((PictureViewHolder) viewHolder).bind(item);
     }
 
-    public ViewModelResult getItem(int position) {
-        return pictureDataList.get(position);
-    }
-
     @Override
     public int getItemCount() {
         return pictureDataList.size();
     }
 
 
-    static class PictureViewHolder extends RecyclerView.ViewHolder {
+    static class PictureViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ItemPictureBinding itemPictureBinding;
 
         PictureViewHolder(ItemPictureBinding itemPictureBinding) {
             super(itemPictureBinding.cardView);
             this.itemPictureBinding = itemPictureBinding;
+            itemPictureBinding.cardView.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View view) {
+            Context context = itemView.getContext();
+            itemPictureBinding.getResult().getUrl();
+            String url = itemPictureBinding.getResult().getUrl();
+            String text = itemPictureBinding.getResult().getDescription();
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra(DetailActivity.URL_KEY, url);
+            intent.putExtra(DetailActivity.DESCRIPTION_KEY, text);
+
+            String transitionName = context.getString(R.string.transition_name);
+            Pair<View, String> pair = new Pair<View, String>(itemPictureBinding.ivPicture,
+                    transitionName);
+
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pair);
+
+            ActivityCompat.startActivity((AppCompatActivity) context, intent, activityOptionsCompat.toBundle());
         }
 
         void bind(ViewModelResult result) {
