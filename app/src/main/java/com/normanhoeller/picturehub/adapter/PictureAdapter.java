@@ -57,7 +57,6 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pair);
 
                 ActivityCompat.startActivity((AppCompatActivity) context, intent, activityOptionsCompat.toBundle());
-//                holder.itemView.getContext().startActivity(intent);
             }
         });
         return new PictureViewHolder(itemPictureBinding);
@@ -68,8 +67,6 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewModelResult item = pictureDataList.get(position);
         ((PictureViewHolder) viewHolder).bind(item);
-
-
     }
 
     public ViewModelResult getItem(int position) {
@@ -88,6 +85,7 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         PictureViewHolder(ItemPictureBinding itemPictureBinding) {
             super(itemPictureBinding.cardView);
             this.itemPictureBinding = itemPictureBinding;
+
         }
 
         void bind(ViewModelResult result) {

@@ -33,7 +33,6 @@ public class ViewModelResult {
         if (TextUtils.isEmpty(url)) {
             return;
         }
-
         Context context = imageView.getContext();
         Picasso.with(context).load(url).into(imageView);
     }
