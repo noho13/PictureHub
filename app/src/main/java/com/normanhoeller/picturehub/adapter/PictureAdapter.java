@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by norman on 31/08/15.
  */
-public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHolder> {
+public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = PictureAdapter.class.getSimpleName();
     private List<ViewModelResult> pictureDataList;
@@ -24,18 +24,18 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ItemPictureBinding itemPictureBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_picture,
                 parent,
                 false);
-        return new ViewHolder(itemPictureBinding);
+        return new PictureViewHolder(itemPictureBinding);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewModelResult item = pictureDataList.get(position);
-        viewHolder.bind(item);
+        ((PictureViewHolder) viewHolder).bind(item);
     }
 
     @Override
@@ -43,10 +43,10 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
         return pictureDataList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class PictureViewHolder extends RecyclerView.ViewHolder {
         ItemPictureBinding itemPictureBinding;
 
-        ViewHolder(ItemPictureBinding itemPictureBinding) {
+        PictureViewHolder(ItemPictureBinding itemPictureBinding) {
             super(itemPictureBinding.cardView);
             this.itemPictureBinding = itemPictureBinding;
         }
