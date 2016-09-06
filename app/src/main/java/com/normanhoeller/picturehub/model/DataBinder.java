@@ -16,7 +16,7 @@ public class DataBinder {
         //NO-OP
     }
 
-    @BindingAdapter("imageUrl")
+    @BindingAdapter("bind:imageUrl")
     public static void setImageUrl(ImageView imageView, String url) {
         if (TextUtils.isEmpty(url)) {
             return;

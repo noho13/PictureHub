@@ -3,7 +3,6 @@ package com.normanhoeller.picturehub.adapter;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.normanhoeller.picturehub.R;
@@ -26,8 +25,11 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_picture, parent, false);
-        return new ViewHolder(view);
+        ItemPictureBinding itemPictureBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+                R.layout.item_picture,
+                parent,
+                false);
+        return new ViewHolder(itemPictureBinding);
     }
 
     @Override
@@ -55,9 +57,9 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
 //        TextView description;
         ItemPictureBinding itemPictureBinding;
 
-        ViewHolder(View itemView) {
-            super(itemView);
-            itemPictureBinding = DataBindingUtil.bind(itemView);
+        ViewHolder(ItemPictureBinding itemPictureBinding) {
+            super(itemPictureBinding.cardView);
+            this.itemPictureBinding = itemPictureBinding;
 //            this.imageView = (ImageView) itemView.findViewById(R.id.iv_picture);
 //            this.description = (TextView) itemView.findViewById(R.id.tv_line1);
         }
