@@ -30,7 +30,6 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(AndroidJUnit4.class)
 public class TestPictureActivity {
 
-    private int expectedItems = 1;
     private PictureFragment fragment;
     @Inject
     ShutterStockService shutterStockService;
@@ -74,6 +73,7 @@ public class TestPictureActivity {
     public void itemCount(){
         RecyclerView recyclerView = (RecyclerView) fragment.getView().findViewById(R.id.rv_item_grid);
         int itemCount = recyclerView.getAdapter().getItemCount();
+        int expectedItems = 1;
         assertEquals(expectedItems, itemCount);
     }
 

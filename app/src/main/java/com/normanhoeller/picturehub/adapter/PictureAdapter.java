@@ -1,10 +1,18 @@
 package com.normanhoeller.picturehub.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import com.normanhoeller.picturehub.DetailActivity;
 import com.normanhoeller.picturehub.R;
 import com.normanhoeller.picturehub.databinding.ItemPictureBinding;
 import com.normanhoeller.picturehub.model.ViewModelResult;
@@ -25,23 +33,54 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ItemPictureBinding itemPictureBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
+        final ItemPictureBinding itemPictureBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.item_picture,
                 parent,
                 false);
+        final PictureViewHolder holder = new PictureViewHolder(itemPictureBinding);
+        itemPictureBinding.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Context context = holder.itemView.getContext();
+
+                String url = getItem(holder.getAdapterPosition()).getUrl();
+                String text = getItem(holder.getAdapterPosition()).getDescription();
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(DetailActivity.URL_KEY, url);
+                intent.putExtra(DetailActivity.DESCRIPTION_KEY, text);
+
+                String transitionName = context.getString(R.string.transition_name);
+                Pair<View, String> pair = new Pair<View, String>(itemPictureBinding.ivPicture,
+                        transitionName);
+
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((AppCompatActivity) context, pair);
+
+                ActivityCompat.startActivity((AppCompatActivity) context, intent, activityOptionsCompat.toBundle());
+//                holder.itemView.getContext().startActivity(intent);
+            }
+        });
         return new PictureViewHolder(itemPictureBinding);
     }
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewModelResult item = pictureDataList.get(position);
         ((PictureViewHolder) viewHolder).bind(item);
+
+
+    }
+
+    public ViewModelResult getItem(int position) {
+        return pictureDataList.get(position);
     }
 
     @Override
     public int getItemCount() {
         return pictureDataList.size();
     }
+
 
     static class PictureViewHolder extends RecyclerView.ViewHolder {
         ItemPictureBinding itemPictureBinding;

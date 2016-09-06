@@ -11,12 +11,12 @@ import dagger.Provides;
 /**
  * Created by norman on 31/08/15.
  */
-@Module
+@Module(includes = HelperModule.class)
 public class ApplicationModule {
 
     @Provides
     @Singleton
-    public ShutterStockService provideRestClient() {
-        return RestClient.getInstance().getService();
+    public ShutterStockService provideShutterStockService(RestClient restClient) {
+        return restClient.getService();
     }
 }
