@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.RequestCreator;
 
 /**
  * Created by norman on 29/09/15.
@@ -28,12 +29,18 @@ public class ViewModelResult {
         return description;
     }
 
-    @BindingAdapter("bind:imageUrl")
-    public static void setImageUrl(ImageView imageView, String url) {
+    @BindingAdapter(value = {"android:src", "placeHolder"},
+            requireAll = false)
+    public static void setImageUrl(ImageView imageView, String url, int placeHolder) {
         if (TextUtils.isEmpty(url)) {
             return;
         }
         Context context = imageView.getContext();
-        Picasso.with(context).load(url).into(imageView);
+        RequestCreator requestCreator = Picasso.with(context).load(url);
+        if (placeHolder != 0) {
+            requestCreator.placeholder(placeHolder);
+        }
+        requestCreator.into(imageView);
+//        Picasso.with(context).load(url).into(imageView);
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="com.normanhoeller.picturehub.R" />
         <variable
             name="result"
             type="com.normanhoeller.picturehub.model.ViewModelResult" />
@@ -13,7 +13,6 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginBottom="8dp"
@@ -30,10 +29,10 @@
                 android:layout_height="120dp"
                 android:layout_marginLeft="16dp"
                 android:scaleType="centerCrop"
+                app:placeHolder="@{R.color.blue}"
+                android:src="@{result.url}"
                 android:transitionName="@string/transition_name"
-                app:imageUrl="@{result.url}"
-                tools:src="@drawable/place_holder"
-                tools:targetApi="lollipop" />
+                />
 
             <TextView
                 android:id="@+id/tv_line1"
@@ -42,8 +41,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/iv_picture"
                 android:padding="8dp"
-                android:text="@{result.description}"
-                tools:text="@string/app_name" />
+                android:text="@{result.description}" />
 
 
             <TextView
@@ -53,8 +51,7 @@
                 android:layout_below="@id/tv_line1"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/iv_picture"
-                android:padding="8dp"
-                tools:text="@string/app_name" />
+                android:padding="8dp" />
 
         </RelativeLayout>
 

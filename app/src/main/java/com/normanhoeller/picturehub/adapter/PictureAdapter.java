@@ -83,6 +83,7 @@ public class PictureAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         void bind(ViewModelResult result) {
             itemPictureBinding.setResult(result);
+            itemPictureBinding.executePendingBindings();
         }
     }
 }
