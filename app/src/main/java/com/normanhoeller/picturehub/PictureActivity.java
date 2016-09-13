@@ -21,7 +21,6 @@ public class PictureActivity extends AppCompatActivity implements WorkerFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setupWorker();
         if (savedInstanceState == null) {
             PictureFragment fragment = PictureFragment.createInstance(getIntent().getStringExtra(SEARCH_QUERY));

@@ -26,4 +26,6 @@ public class TestViewModelResult {
         assertEquals("someUrl", result.getUrl());
         assertEquals("someDescription", result.getDescription());
     }
+
+
 }
